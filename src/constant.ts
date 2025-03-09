@@ -5,3 +5,13 @@ export const TRADE_ENDPOINT = 'wss://ws.btse.com/ws/futures';
 // WebSocket 頻道訂閱主題
 export const ORDERBOOK_TOPIC = 'update:BTCPFC';
 export const TRADE_HISTORY_TOPIC = 'tradeHistoryApi:BTCPFC';
+
+// 訂閱頻道
+export const ORDERBOOK_CHANNEL = 'update:BTCPFC_0';
+
+export const DIRECTION = {
+  ASC: 'asc',
+  DESC: 'desc',
+} as const;
+
+export type Direction = (typeof DIRECTION)[keyof typeof DIRECTION];
