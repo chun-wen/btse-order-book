@@ -1,0 +1,17 @@
+type Price = string;
+type Size = string;
+
+export type OrderPair = [Price, Size];
+
+export type OrderBookResponse = {
+  topic: string;
+  data: {
+    bids: OrderPair[];
+    asks: OrderPair[];
+  };
+  seqNum: number;
+  prevSeqNum: number;
+  type: 'snapshot' | 'delta';
+  timestamp: number;
+  symbol: string;
+};
