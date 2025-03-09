@@ -1,8 +1,12 @@
+'use client'
+
+import OrderBookTable from '@/features/order-book/components/OrderBookTable';
 
 export default function Home() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <OrderBookTable 
+      asks={[]}
+      bids={[]}
+    />
   );
 }
