@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -9,19 +8,19 @@ module.exports = {
     extend: {
       colors: {
         // 背景顏色
-        'bg-primary': '#131B29',
+        'primary': '#131B29',
         'row-hover': '#1E3059',
         
         // 文字顏色
-        'text-default': '#F0F4F8',
-        'text-secondary': '#8698aa',
-        'text-buy': '#00b15d',
-        'text-sell': '#FF5B5A',
+        'default': '#F0F4F8',
+        'secondary': '#8698aa',
+        'buy': '#00b15d',
+        'sell': '#FF5B5A',
         
         // 上漲/下跌背景色
-        'bg-price-up': 'rgba(16, 186, 104, 0.12)',
-        'bg-price-down': 'rgba(255, 90, 90, 0.12)',
-        'bg-price-same': 'rgba(134, 152, 170, 0.12)',
+        'price-up': 'rgba(16, 186, 104, 0.12)',
+        'price-down': 'rgba(255, 90, 90, 0.12)',
+        'price-same': 'rgba(134, 152, 170, 0.12)',
         
         // 累計總量條顏色
         'bar-buy': 'rgba(16, 186, 104, 0.12)',
