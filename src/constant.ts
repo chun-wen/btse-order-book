@@ -22,3 +22,5 @@ export const CELL_TYPE = {
 } as const;
 
 export type CellType = (typeof CELL_TYPE)[keyof typeof CELL_TYPE];
+
+export const MAX_DISPLAYED_ORDERS = 8;
