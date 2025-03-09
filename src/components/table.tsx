@@ -20,13 +20,9 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead
-    ref={ref}
-    className={cn('text-secondary', className)}
-    {...props}
-  />
-))
-TableHeader.displayName = 'TableHeader'
+  <thead ref={ref} className={cn('text-table-head', className)} {...props} />
+));
+TableHeader.displayName = 'TableHeader';
 
 const TableBody = React.forwardRef<
   HTMLTableSectionElement,
@@ -67,10 +63,7 @@ const TableHead = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <th
     ref={ref}
-    className={cn(
-      'h-10 px-4 text-left align-middle text-secondary font-normal',
-      className,
-    )}
+    className={cn('text-table-head h-10 px-4 text-left align-middle font-normal', className)}
     {...props}
   />
 ))
@@ -182,11 +175,14 @@ const TableTotalBarCell = React.forwardRef<
 TableTotalBarCell.displayName = 'TableTotalBarCell'
 
 export {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader, TablePriceCell, TableRow, TableTotalBarCell
-}
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TablePriceCell,
+    TableRow,
+    TableTotalBarCell
+};
 
