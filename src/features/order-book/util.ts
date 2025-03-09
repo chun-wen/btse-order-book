@@ -1,34 +1,21 @@
 import type { Direction } from '@/constant';
 import { DIRECTION } from '@/constant';
 
-import {
-  Order,
-  OrderBookTableData,
-  OrderBookTableDataItem,
-  OrderPair,
-} from './type';
+import { Order, OrderBookTableData, OrderBookTableDataItem, OrderPair } from './type';
 
-export const getBidsOrderBookTableData = (
-  orders: Order[],
-): OrderBookTableData => {
+export const getBidsOrderBookTableData = (orders: Order[]): OrderBookTableData => {
   return calculateOrderBookTableData(orders, DIRECTION.ASC);
 };
 
-export const getAsksOrderBookTableData = (
-  orders: Order[],
-): OrderBookTableData => {
+export const getAsksOrderBookTableData = (orders: Order[]): OrderBookTableData => {
   return calculateOrderBookTableData(orders, DIRECTION.DESC);
 };
 
-const calculateOrderBookTableData = (
-  orders: Order[],
-  direction: Direction,
-): OrderBookTableData => {
+const calculateOrderBookTableData = (orders: Order[], direction: Direction): OrderBookTableData => {
   const result: OrderBookTableDataItem[] = [];
   let accumulatedSize = 0;
 
-  const ordersToProcess =
-    direction === DIRECTION.DESC ? [...orders].reverse() : orders;
+  const ordersToProcess = direction === DIRECTION.DESC ? [...orders].reverse() : orders;
 
   for (const order of ordersToProcess) {
     const { size, ...rest } = order;

@@ -1,18 +1,18 @@
-import { cn } from '@/utils/cn';
 import React from 'react';
+
+import { cn } from '@/utils/cn';
 
 type ArrowIconProps = {
   color?: string;
   size?: number;
   direction?: 'up' | 'down';
-}
+};
 
-const ArrowIcon: React.FC<ArrowIconProps> = ({ 
-  color = 'currentColor', 
+const ArrowIcon: React.FC<ArrowIconProps> = ({
+  color = 'currentColor',
   size = 24,
-  direction = 'down'
+  direction = 'down',
 }) => {
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

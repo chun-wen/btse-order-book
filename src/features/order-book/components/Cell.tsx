@@ -18,7 +18,7 @@ export const TotalCell = ({ order, totalSize, type }: TotalCellProps) => {
       {priceFormatter(order.total)}
       <div
         className={cn(
-          'absolute right-0 bottom-0 z-[-1] h-full w-full',
+          'absolute bottom-0 right-0 z-[-1] h-full w-full',
           type === CELL_TYPE.ASK ? 'bg-bar-sell' : 'bg-bar-buy',
         )}
         style={{ transform: `translateX(${(1 - percentage) * 100}%)` }}
@@ -42,9 +42,5 @@ export const SizeCell = ({ order }: SizeCellProps) => {
     return 'bg-flash-red';
   };
 
-  return (
-    <div className={cn('w-full', getBackgroundClass())}>
-      {priceFormatter(order.size)}
-    </div>
-  );
+  return <div className={cn('w-full', getBackgroundClass())}>{priceFormatter(order.size)}</div>;
 };

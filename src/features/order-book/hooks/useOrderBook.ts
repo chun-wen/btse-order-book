@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { ORDERBOOK_CHANNEL } from '@/constant';
 import { useWebSocketContext } from '@/hooks/WebSocketContext';
 import { safeJsonParse } from '@/utils/safeParseJson';
-import { ORDERBOOK_CHANNEL } from '@/constant';
+
 import { Order, OrderBookResponse, OrderPair } from '../type';
 import { processOrderUpdates } from '../util';
 
@@ -12,11 +13,8 @@ const useOrdersData = () => {
   const [totalSize, setTotalSize] = useState(0);
 
   const updateOrders = useCallback((pairs: OrderPair[]) => {
-    const { updatedMap, totalDiff } = processOrderUpdates(
-      ordersMapRef.current,
-      pairs
-    );
-    
+    const { updatedMap, totalDiff } = processOrderUpdates(ordersMapRef.current, pairs);
+
     ordersMapRef.current = updatedMap;
     setOrders(Array.from(updatedMap.values()));
     setTotalSize((prev) => prev + totalDiff);
@@ -76,5 +74,5 @@ export const useOrderBook = () => {
       asks: askOrdersData,
       bids: bidOrdersData,
     },
-  }
+  };
 };

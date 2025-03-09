@@ -33,7 +33,7 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
       clearTimeout(reconnectTimeoutRef.current);
       reconnectTimeoutRef.current = null;
     }
-    
+
     setReady(false);
   }, []);
 
@@ -62,16 +62,16 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
     ws.onclose = (event) => {
       console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
       setReady(false);
-      
+
       // 重連邏輯
       if (reconnectAttemptsRef.current < MAX_RECONNECT_ATTEMPTS) {
         const delay = Math.min(
           1000 * Math.pow(2, reconnectAttemptsRef.current),
-          MAX_RECONNECT_DELAY
+          MAX_RECONNECT_DELAY,
         );
 
         console.log(`Attempting to reconnect in ${delay}ms...`);
-        
+
         reconnectTimeoutRef.current = setTimeout(() => {
           reconnectAttemptsRef.current += 1;
           connect();
@@ -85,36 +85,42 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
   }, [endpoint, closeConnection]);
 
   // 訂閱頻道
-  const subscribe = useCallback((channel: string) => {
-    if (!instanceRef.current || !ready) {
-      console.warn('WebSocket is not ready. Cannot subscribe.');
-      return;
-    }
+  const subscribe = useCallback(
+    (channel: string) => {
+      if (!instanceRef.current || !ready) {
+        console.warn('WebSocket is not ready. Cannot subscribe.');
+        return;
+      }
 
-    const message = JSON.stringify({
-      op: 'subscribe',
-      args: [channel],
-    });
-    
-    instanceRef.current.send(message);
-    console.log(`Subscribed to channel: ${channel}`);
-  }, [ready]);
+      const message = JSON.stringify({
+        op: 'subscribe',
+        args: [channel],
+      });
+
+      instanceRef.current.send(message);
+      console.log(`Subscribed to channel: ${channel}`);
+    },
+    [ready],
+  );
 
   // 解除訂閱頻道
-  const unsubscribe = useCallback((channel: string) => {
-    if (!instanceRef.current || !ready) {
-      console.warn('WebSocket is not ready. Cannot unsubscribe.');
-      return;
-    }
+  const unsubscribe = useCallback(
+    (channel: string) => {
+      if (!instanceRef.current || !ready) {
+        console.warn('WebSocket is not ready. Cannot unsubscribe.');
+        return;
+      }
 
-    const message = JSON.stringify({
-      op: 'unsubscribe',
-      args: [channel],
-    });
-    
-    instanceRef.current.send(message);
-    console.log(`Unsubscribed from channel: ${channel}`);
-  }, [ready]);
+      const message = JSON.stringify({
+        op: 'unsubscribe',
+        args: [channel],
+      });
+
+      instanceRef.current.send(message);
+      console.log(`Unsubscribed from channel: ${channel}`);
+    },
+    [ready],
+  );
 
   // 在 component mount 時建立 WebSocket 連線，在 unmount 時關閉連線
   useEffect(() => {
@@ -131,4 +137,4 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
     subscribe,
     unsubscribe,
   };
-} 
+}

@@ -25,13 +25,13 @@ type Props = {
 
 export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
   return (
-    <Table className='w-[300px]'>
-      <TableCaption className='text-left'>Order Book</TableCaption>
+    <Table className="w-[300px]">
+      <TableCaption className="text-left">Order Book</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className='w-[30%]'>Price(USD)</TableHead>
-          <TableHead className='w-[30%]'>Size</TableHead>
-          <TableHead className='w-[40%]'>Total</TableHead>
+          <TableHead className="w-[30%]">Price(USD)</TableHead>
+          <TableHead className="w-[30%]">Size</TableHead>
+          <TableHead className="w-[40%]">Total</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

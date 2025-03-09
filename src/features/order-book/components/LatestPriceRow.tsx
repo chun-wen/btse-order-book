@@ -30,18 +30,15 @@ const LatestPriceRow = ({ record }: { record: PriceRecord }) => {
 
   return (
     <TableRow className={cn('w-full p-0.5', bg)}>
-      <TableCell className={cn('text-center gap-2', text)} colSpan={3}>    
-         <div className="flex items-center justify-center gap-2 w-full">
-      <span className="text-2xl font-bold leading-normal">
-        {priceFormatter(record.current)}
-      </span>
-      {record.current !== record.previous && (
-        <ArrowIcon
-          direction={record.current > record.previous ? 'up' : 'down'}
-          size={16}
-        />
-      )}
-    </div>
+      <TableCell className={cn('gap-2 text-center', text)} colSpan={3}>
+        <div className="flex w-full items-center justify-center gap-2">
+          <span className="text-2xl font-bold leading-normal">
+            {priceFormatter(record.current)}
+          </span>
+          {record.current !== record.previous && (
+            <ArrowIcon direction={record.current > record.previous ? 'up' : 'down'} size={16} />
+          )}
+        </div>
       </TableCell>
     </TableRow>
   );

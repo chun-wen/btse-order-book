@@ -5,4 +5,4 @@ export const safeJsonParse = <T>(json: string): T | null => {
     console.error(e);
     return null;
   }
-}
+};
