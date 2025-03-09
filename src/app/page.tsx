@@ -5,6 +5,7 @@ import { MAX_DISPLAYED_ORDERS } from '@/constant';
 import OrderBookTable from '@/features/order-book/components/OrderBookTable';
 import { useOrderBook } from '@/features/order-book/hooks/useOrderBook';
 import { getAsksOrderBookTableData, getBidsOrderBookTableData } from '@/features/order-book/util';
+import { useLatestTradePriceRecord } from '@/features/trade/hooks/useLatestTradePriceRecord';
 import { WebSocketProvider } from '@/hooks/WebSocketContext';
 
 export default function Home() {
@@ -30,7 +31,10 @@ function OrderBookContent() {
       .slice(0, MAX_DISPLAYED_ORDERS),
   );
 
-  if (loading) {
+  const { data: latestPriceRecord, loading: latestPriceLoading } =
+    useLatestTradePriceRecord();
+
+  if (loading || latestPriceLoading) {
     return <>Loading...</>;
   }
 
@@ -38,10 +42,7 @@ function OrderBookContent() {
     <OrderBookTable 
       asks={displayedAsksData}
       bids={displayedBidsData}
-      priceRecord={{
-        current: 0,
-        previous: 0,
-      }}
+      priceRecord={latestPriceRecord}
     />
   );
 }

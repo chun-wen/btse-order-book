@@ -8,6 +8,10 @@ export const TRADE_HISTORY_TOPIC = 'tradeHistoryApi:BTCPFC';
 
 // 訂閱頻道
 export const ORDERBOOK_CHANNEL = 'update:BTCPFC_0';
+export const TRADE_HISTORY_CHANNEL = 'tradeHistoryApi:BTCPFC';
+export const TRADE_TOPIC = 'tradeHistoryApi';
+
+export const SAME_PRICE_THRESHOLD = 100;
 
 export const DIRECTION = {
   ASC: 'asc',

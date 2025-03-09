@@ -25,8 +25,8 @@ type Props = {
 
 export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
   return (
-    <Table>
-      <TableCaption>Order Book</TableCaption>
+    <Table className='w-[300px]'>
+      <TableCaption className='text-left'>Order Book</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className='w-[30%]'>Price(USD)</TableHead>
@@ -37,13 +37,13 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
       <TableBody>
         {asks.data.map((data, index) => (
           <TableRow key={`${data.price}-${index}`}>
-            <TableCell className="text-ask w-[30%] text-right">
+            <TableCell className="text-sell w-[30%] text-right">
               {priceFormatter(data.price)}
             </TableCell>
-            <TableCell className="text-ask w-[30%] text-right">
+            <TableCell className="w-[30%] text-right">
               <SizeCell order={data} />
             </TableCell>
-            <TableCell className="text-ask w-[40%] text-right">
+            <TableCell className="w-[40%] text-right">
               <TotalCell order={data} totalSize={asks.totalSize} type={CELL_TYPE.ASK} />
             </TableCell>
           </TableRow>
@@ -55,13 +55,13 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
       <TableBody>
         {bids.data.map((data, index) => (
           <TableRow key={`${data.price}-${index}`}>
-            <TableCell className="text-bid w-[30%] text-right">
+            <TableCell className="text-buy w-[30%] text-right">
               {priceFormatter(data.price)}
             </TableCell>
-            <TableCell className="text-bid w-[30%] text-right">
+            <TableCell className="w-[30%] text-right">
               <SizeCell order={data} />
             </TableCell>
-            <TableCell className="text-bid w-[40%] text-right">
+            <TableCell className="w-[40%] text-right">
               <TotalCell order={data} totalSize={bids.totalSize} type={CELL_TYPE.BID} />
             </TableCell>
           </TableRow>
