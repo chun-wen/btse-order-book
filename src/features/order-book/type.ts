@@ -15,3 +15,18 @@ export type OrderBookResponse = {
   timestamp: number;
   symbol: string;
 };
+
+export type Order = {
+  price: number;
+  prevSize: number;
+  size: number;
+};
+
+export type OrderBookTableDataItem = Order & {
+  total: number;
+};
+
+export type OrderBookTableData = {
+  data: OrderBookTableDataItem[];
+  totalSize: number;
+};

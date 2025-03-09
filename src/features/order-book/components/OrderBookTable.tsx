@@ -1,48 +1,78 @@
-'use client   '
+'use client';
 
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/Table';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/Table';
+import { CELL_TYPE } from '@/constant';
+import { PriceRecord } from '@/features/trade/type';
 import { priceFormatter } from '@/utils/priceFormatter';
-import { OrderPair } from '../type';
+
+import { OrderBookTableData } from '../type';
+import { SizeCell, TotalCell } from './Cell';
+import LatestPriceRow from './LatestPriceRow';
 
 type Props = {
-  asks: OrderPair[];
-  bids: OrderPair[];
-}
+  asks: OrderBookTableData;
+  bids: OrderBookTableData;
+  priceRecord: PriceRecord;
+};
 
-
-export default function OrderBookTable({
-  asks,
-  bids
-}: Props) {
+export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
   return (
     <Table>
       <TableCaption>Order Book</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Price(USD)</TableHead>
-            <TableHead>Size</TableHead>
-            <TableHead>Total</TableHead>
-          </TableRow>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Price(USD)</TableHead>
+          <TableHead>Size</TableHead>
+          <TableHead>Total</TableHead>
+        </TableRow>
       </TableHeader>
       <TableBody>
-        {asks.map((ask) => (
-          <TableRow key={ask[0]}>
-            <TableCell>{priceFormatter(ask[0])}</TableCell>
-            <TableCell>{priceFormatter(ask[1])}</TableCell>
-            <TableCell>{priceFormatter(ask[0])}</TableCell>
+        {asks.data.map((data, index) => (
+          <TableRow key={`${data.price}-${index}`}>
+            <TableCell className="text-ask w-[30%] text-right">
+              {priceFormatter(data.price)}
+            </TableCell>
+            <TableCell className="text-ask w-[30%] text-right">
+              <SizeCell order={data} />
+            </TableCell>
+            <TableCell className="text-ask w-[40%] text-right">
+              <TotalCell
+                order={data}
+                totalSize={asks.totalSize}
+                type={CELL_TYPE.ASK}
+              />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      
+      <LatestPriceRow record={priceRecord} />
       <TableBody>
-        {bids.map((bid) => (
-          <TableRow key={bid[0]}>
-            <TableCell>{priceFormatter(bid[0])}</TableCell>
-            <TableCell>{priceFormatter(bid[1])}</TableCell>
-            <TableCell>{priceFormatter(bid[0])}</TableCell>
+        {bids.data.map((data, index) => (
+          <TableRow key={`${data.price}-${index}`}>
+            <TableCell className="text-bid w-[30%] text-right">
+              {priceFormatter(data.price)}
+            </TableCell>
+            <TableCell className="text-bid w-[30%] text-right">
+              <SizeCell order={data} />
+            </TableCell>
+            <TableCell className="text-bid w-[40%] text-right">
+              <TotalCell
+                order={data}
+                totalSize={bids.totalSize}
+                type={CELL_TYPE.BID}
+              />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      </Table>  
-  )
+    </Table>
+  );
 }

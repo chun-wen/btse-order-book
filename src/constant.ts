@@ -15,3 +15,10 @@ export const DIRECTION = {
 } as const;
 
 export type Direction = (typeof DIRECTION)[keyof typeof DIRECTION];
+
+export const CELL_TYPE = {
+  ASK: 'ask',
+  BID: 'bid',
+} as const;
+
+export type CellType = (typeof CELL_TYPE)[keyof typeof CELL_TYPE];
