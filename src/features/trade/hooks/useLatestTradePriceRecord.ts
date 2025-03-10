@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { SAME_PRICE_THRESHOLD, TRADE_HISTORY_TOPIC, TRADE_TOPIC } from '@/constant';
+import {
+  SAME_PRICE_THRESHOLD,
+  TRADE_HISTORY_TOPIC,
+  TRADE_TOPIC,
+} from '@/constant';
 import { useWebSocketContext } from '@/hooks/WebSocketContext';
 import { safeJsonParse } from '@/utils/safeParseJson';
 
@@ -19,10 +23,6 @@ export const useLatestTradePriceRecord = () => {
     if (!tradeWs.ready) return;
 
     tradeWs.subscribe(TRADE_HISTORY_TOPIC);
-
-    return () => {
-      tradeWs.unsubscribe(TRADE_HISTORY_TOPIC);
-    };
   }, [tradeWs, tradeWs.ready]);
 
   useEffect(() => {

@@ -13,11 +13,14 @@ const useOrdersData = () => {
   const [totalSize, setTotalSize] = useState(0);
 
   const updateOrders = useCallback((pairs: OrderPair[]) => {
-    const { updatedMap, totalDiff } = processOrderUpdates(ordersMapRef.current, pairs);
+    const { updatedMap, totalDiff } = processOrderUpdates(
+      ordersMapRef.current,
+      pairs,
+    );
 
     ordersMapRef.current = updatedMap;
     setOrders(Array.from(updatedMap.values()));
-    setTotalSize((prev) => prev + totalDiff);
+    setTotalSize(prev => prev + totalDiff);
   }, []);
 
   return [{ orders, totalSize }, updateOrders] as const;
@@ -34,10 +37,6 @@ export const useOrderBook = () => {
     if (!orderbookWs.ready) return;
 
     orderbookWs.subscribe(ORDERBOOK_CHANNEL);
-
-    return () => {
-      orderbookWs.unsubscribe(ORDERBOOK_CHANNEL);
-    };
   }, [orderbookWs, orderbookWs.ready]);
 
   // handle orderbook data
