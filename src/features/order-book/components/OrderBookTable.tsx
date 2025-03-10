@@ -42,9 +42,9 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
         {asks.data.map((data, index) => (
           <TableRow
             key={`${data.price}-${index}`}
-            highlight={newAskPrices.has(data.price) ? 'new-sell' : null}
+            highlight={newAskPrices.has(data.price) ? 'new-ask' : null}
           >
-            <TableCell className="w-[30%] text-right text-sell">
+            <TableCell className="w-[30%] text-right text-ask">
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">
@@ -67,9 +67,9 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
         {bids.data.map((data, index) => (
           <TableRow
             key={`${data.price}-${index}`}
-            highlight={newBidPrices.has(data.price) ? 'new-buy' : null}
+            highlight={newBidPrices.has(data.price) ? 'new-bid' : null}
           >
-            <TableCell className="w-[30%] text-right text-buy">
+            <TableCell className="w-[30%] text-right text-bid">
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">

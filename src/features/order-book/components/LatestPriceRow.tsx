@@ -16,13 +16,13 @@ const LatestPriceRow = ({ record }: { record: PriceRecord }) => {
     if (record.current > record.previous) {
       return {
         bg: 'bg-price-up',
-        text: 'text-buy',
+        text: 'text-bid',
       };
     }
 
     return {
       bg: 'bg-price-down',
-      text: 'text-sell',
+      text: 'text-ask',
     };
   };
 

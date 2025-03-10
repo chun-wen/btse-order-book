@@ -34,7 +34,7 @@ const TableBody = React.forwardRef<
 TableBody.displayName = 'TableBody';
 
 interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  highlight?: 'increase' | 'decrease' | 'new-buy' | 'new-sell' | null;
+  highlight?: 'new-bid' | 'new-ask' | null;
 }
 
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
@@ -43,8 +43,8 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       ref={ref}
       className={cn(
         'hover:bg-row-hover transition-colors',
-        highlight === 'new-buy' && 'animate-flash-green',
-        highlight === 'new-sell' && 'animate-flash-red',
+        highlight === 'new-bid' && 'animate-flash-green',
+        highlight === 'new-ask' && 'animate-flash-red',
         className,
       )}
       {...props}

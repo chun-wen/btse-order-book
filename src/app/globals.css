@@ -56,11 +56,11 @@
   color: var(--color-table-head);
 }
 
-.text-buy {
+.text-bid {
   color: var(--color-buy);
 }
 
-.text-sell {
+.text-ask {
   color: var(--color-sell);
 }
 
