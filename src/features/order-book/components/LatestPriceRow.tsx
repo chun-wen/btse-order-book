@@ -36,7 +36,10 @@ const LatestPriceRow = ({ record }: { record: PriceRecord }) => {
             {priceFormatter(record.current)}
           </span>
           {record.current !== record.previous && (
-            <ArrowIcon direction={record.current > record.previous ? 'up' : 'down'} size={16} />
+            <ArrowIcon
+              direction={record.current > record.previous ? 'up' : 'down'}
+              size={16}
+            />
           )}
         </div>
       </TableCell>

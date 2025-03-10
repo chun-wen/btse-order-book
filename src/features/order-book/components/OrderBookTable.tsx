@@ -9,10 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/Table';
-import { CELL_TYPE } from '@/constant';
 import { PriceRecord } from '@/features/trade/type';
 import { priceFormatter } from '@/utils/priceFormatter';
 
+import { CELL_TYPE } from '@/constant';
+import { useNewOrderSet } from '../hooks/useNewOrderSet';
 import { OrderBookTableData } from '../type';
 import { SizeCell, TotalCell } from './Cell';
 import LatestPriceRow from './LatestPriceRow';
@@ -24,6 +25,9 @@ type Props = {
 };
 
 export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
+  const newAskPrices = useNewOrderSet(asks.data);
+  const newBidPrices = useNewOrderSet(bids.data);
+
   return (
     <Table className="w-[300px]">
       <TableCaption className="text-left">Order Book</TableCaption>
@@ -36,15 +40,22 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
       </TableHeader>
       <TableBody>
         {asks.data.map((data, index) => (
-          <TableRow key={`${data.price}-${index}`}>
-            <TableCell className="text-sell w-[30%] text-right">
+          <TableRow
+            key={`${data.price}-${index}`}
+            highlight={newAskPrices.has(data.price) ? 'new-sell' : null}
+          >
+            <TableCell className="w-[30%] text-right text-sell">
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">
-              <SizeCell order={data} />
+              <SizeCell order={data} type={CELL_TYPE.ASK} />
             </TableCell>
             <TableCell className="w-[40%] text-right">
-              <TotalCell order={data} totalSize={asks.totalSize} type={CELL_TYPE.ASK} />
+              <TotalCell
+                order={data}
+                totalSize={asks.totalSize}
+                type={CELL_TYPE.ASK}
+              />
             </TableCell>
           </TableRow>
         ))}
@@ -54,15 +65,22 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
       </TableBody>
       <TableBody>
         {bids.data.map((data, index) => (
-          <TableRow key={`${data.price}-${index}`}>
-            <TableCell className="text-buy w-[30%] text-right">
+          <TableRow
+            key={`${data.price}-${index}`}
+            highlight={newBidPrices.has(data.price) ? 'new-buy' : null}
+          >
+            <TableCell className="w-[30%] text-right text-buy">
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">
-              <SizeCell order={data} />
+              <SizeCell order={data} type={CELL_TYPE.BID} />
             </TableCell>
             <TableCell className="w-[40%] text-right">
-              <TotalCell order={data} totalSize={bids.totalSize} type={CELL_TYPE.BID} />
+              <TotalCell
+                order={data}
+                totalSize={bids.totalSize}
+                type={CELL_TYPE.BID}
+              />
             </TableCell>
           </TableRow>
         ))}

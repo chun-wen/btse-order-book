@@ -29,18 +29,23 @@ export const TotalCell = ({ order, totalSize, type }: TotalCellProps) => {
 
 type SizeCellProps = {
   order: OrderBookTableDataItem;
+  type: CellType;
 };
 
-export const SizeCell = ({ order }: SizeCellProps) => {
+export const SizeCell = ({ order, type }: SizeCellProps) => {
   const getBackgroundClass = (): string => {
     if (!order.prevSize || order.prevSize === order.size) return '';
 
     if (order.size > order.prevSize) {
-      return 'bg-flash-green';
+      return type === CELL_TYPE.ASK ? 'bg-flash-green' : 'bg-flash-red';
     }
 
-    return 'bg-flash-red';
+    return type === CELL_TYPE.ASK ? 'bg-flash-red' : 'bg-flash-green';
   };
 
-  return <div className={cn('w-full', getBackgroundClass())}>{priceFormatter(order.size)}</div>;
+  return (
+    <div className={cn('w-full', getBackgroundClass())}>
+      {priceFormatter(order.size)}
+    </div>
+  );
 };
