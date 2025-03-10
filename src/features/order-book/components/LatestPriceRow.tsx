@@ -1,5 +1,5 @@
 import ArrowIcon from '@/components/Arrow';
-import { TableCell, TableRow } from '@/components/Table';
+import { TableCell, TableRow } from '@/components/table';
 import { PriceRecord } from '@/features/trade/type';
 import { cn } from '@/utils/cn';
 import { priceFormatter } from '@/utils/priceFormatter';
