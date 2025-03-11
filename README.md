@@ -1,34 +1,43 @@
-# Demo 展示
-| 影片 
-| ---- | 
-|   <img style="width: 350px" src='' alt='demo video' />   |  
+# Demo 
+| 圖片 |
+| ---- |
+| ![demo](https://github.com/user-attachments/assets/31f77508-a771-40de-959d-404b77d74c20) |
+
 
 ## 專案結構
-
+```
 btse/
-├── src/  
-│ ├── app/  
-│ │ ├── page.tsx  
-│ │ ├── layout.tsx  
-│ │ └── globals.css  
-│ ├── components/  
-│ │ ├── Table.tsx  
-│ │ ├── Arrow.tsx  
-│ │ └── Container.tsx
-│ ├── context/
-│ │ └── WebSocketContext   
-│ ├── features/  
-│ │ ├── order-book/  
-│ │ └── trade/  
-│ ├── hooks/  
-│ │ ├── useWebSocket  
-│ ├── utils/  
-│ └── constant.ts  
-├── public/  
-├── next.config.ts  
-├── package.json  
-├── tsconfig.json  
+│
+├── src/
+│   ├── app/
+│   │   ├── page.tsx
+│   │   ├── layout.tsx
+│   │   └── globals.css
+│   │
+│   ├── components/
+│   │   ├── Table.tsx
+│   │   ├── Arrow.tsx
+│   │   └── Container.tsx
+│   │
+│   ├── context/
+│   │   └── WebSocketContext.tsx
+│   │
+│   ├── features/
+│   │   ├── order-book/
+│   │   └── trade/
+│   │
+│   ├── hooks/
+│   │   └── useWebSocket.ts
+│   │
+│   ├── utils/
+│   └── constant.ts
+│
+├── public/
+├── next.config.js
+├── package.json
+├── tsconfig.json
 └── tailwind.config.js
+```
 
 ## 技術棧 (Tech Stack)
 
@@ -60,8 +69,8 @@ btse/
 
 1. **訂單簿 (Order Book)**
 
-   - 實時顯示買入和賣出訂單
-   - 使用 WebSocket 實時接收訂單數據
+   - 顯示買入和賣出訂單
+   - 使用 WebSocket 接收訂單數據
    - 數據按價格排序並限制顯示最大數量（通過 MAX_DISPLAYED_ORDERS 常量控制）
 
 2. **交易 (Trade)**
