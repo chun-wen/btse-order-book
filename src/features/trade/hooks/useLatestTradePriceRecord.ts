@@ -1,18 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import {
-  SAME_PRICE_THRESHOLD,
-  TRADE_HISTORY_TOPIC,
-  TRADE_TOPIC,
-} from '@/constant';
-import { useWebSocketContext } from '@/hooks/WebSocketContext';
+import { TRADE_HISTORY_TOPIC, TRADE_TOPIC } from '@/constant';
+import { useWebSocketContext } from '@/context/WebSocketContext';
 import { safeJsonParse } from '@/utils/safeParseJson';
 
 import { TradeHistoryResponse } from '../type';
 
 export const useLatestTradePriceRecord = () => {
   const { tradeWs } = useWebSocketContext();
-  const countRef = useRef(0);
 
   const [currPrice, setCurrPrice] = useState(0);
   const [prevPrice, setPrevPrice] = useState(0);
@@ -38,15 +33,8 @@ export const useLatestTradePriceRecord = () => {
 
     setCurrPrice(newPrice);
 
-    countRef.current += 1;
-
-    if (
-      currPrice !== newPrice ||
-      (currPrice === newPrice && countRef.current > SAME_PRICE_THRESHOLD)
-    ) {
+    if (currPrice !== newPrice) {
       setPrevPrice(currPrice);
-
-      countRef.current = 0;
     }
   }, [tradeWs.message, tradeWs.ready, currPrice, prevPrice]);
 

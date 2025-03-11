@@ -2,7 +2,7 @@ import React, { ReactNode, createContext, useContext } from 'react';
 
 import { ORDERBOOK_ENDPOINT, TRADE_ENDPOINT } from '@/constant';
 
-import { useWebSocket } from './useWebSocket';
+import { useWebSocket } from '../hooks/useWebSocket';
 
 type WebSocketContextType = {
   orderbookWs: {
@@ -25,7 +25,9 @@ type WebSocketProviderProps = {
   children: ReactNode;
 };
 
-export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
+export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
+  children,
+}) => {
   const orderbookWs = useWebSocket(ORDERBOOK_ENDPOINT);
   const tradeWs = useWebSocket(TRADE_ENDPOINT);
 
@@ -45,7 +47,9 @@ export const useWebSocketContext = () => {
   const context = useContext(WebSocketContext);
 
   if (!context) {
-    throw new Error('useWebSocketContext must be used within a WebSocketProvider');
+    throw new Error(
+      'useWebSocketContext must be used within a WebSocketProvider',
+    );
   }
 
   return context;

@@ -1,21 +1,25 @@
-import type { Direction } from '@/constant';
-import { DIRECTION } from '@/constant';
+import type { SortOrder } from '@/constant';
+import { SORT_ORDER } from '@/constant';
 
-import { Order, OrderBookTableData, OrderBookTableDataItem, OrderPair } from './type';
+import { Order, OrderBookTableDataItem, OrderPair } from './type';
 
-export const getBidsOrderBookTableData = (orders: Order[]): OrderBookTableData => {
-  return calculateOrderBookTableData(orders, DIRECTION.ASC);
+export const getBidsOrderBookTableData = (orders: Order[]) => {
+  return calculateOrderBookTableData(orders, SORT_ORDER.ASC);
 };
 
-export const getAsksOrderBookTableData = (orders: Order[]): OrderBookTableData => {
-  return calculateOrderBookTableData(orders, DIRECTION.DESC);
+export const getAsksOrderBookTableData = (orders: Order[]) => {
+  return calculateOrderBookTableData(orders, SORT_ORDER.DESC);
 };
 
-const calculateOrderBookTableData = (orders: Order[], direction: Direction): OrderBookTableData => {
+const calculateOrderBookTableData = (
+  orders: Order[],
+  direction: SortOrder,
+) => {
   const result: OrderBookTableDataItem[] = [];
   let accumulatedSize = 0;
 
-  const ordersToProcess = direction === DIRECTION.DESC ? [...orders].reverse() : orders;
+  const ordersToProcess =
+    direction === SORT_ORDER.DESC ? [...orders].reverse() : orders;
 
   for (const order of ordersToProcess) {
     const { size, ...rest } = order;
@@ -27,7 +31,7 @@ const calculateOrderBookTableData = (orders: Order[], direction: Direction): Ord
       total: accumulatedSize,
     };
 
-    if (direction === DIRECTION.DESC) {
+    if (direction === SORT_ORDER.DESC) {
       result.unshift(item);
     } else {
       result.push(item);

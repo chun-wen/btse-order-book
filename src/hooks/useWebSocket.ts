@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// 定義重連的最大嘗試次數和延遲時間上限
 const MAX_RECONNECT_ATTEMPTS = 5;
-const MAX_RECONNECT_DELAY = 10000; // 10 seconds
+const MAX_RECONNECT_DELAY = 3000; // 3 seconds
 
 type WebSocketHookResult = {
   ready: boolean;
@@ -22,7 +21,6 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
   const reconnectAttemptsRef = useRef<number>(0);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // 關閉 WebSocket 連線
   const closeConnection = useCallback(() => {
     if (instanceRef.current) {
       instanceRef.current.close();
@@ -37,8 +35,8 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
     setReady(false);
   }, []);
 
-  // 建立 WebSocket 連線
   const connect = useCallback(() => {
+    // ensure the connection is closed before creating a new one
     if (instanceRef.current) {
       closeConnection();
     }
@@ -51,16 +49,18 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
       reconnectAttemptsRef.current = 0;
     };
 
-    ws.onmessage = (event) => {
+    ws.onmessage = event => {
       setMessage(event.data);
     };
 
-    ws.onerror = (error) => {
+    ws.onerror = error => {
       console.error(`WebSocket error:`, error);
     };
 
-    ws.onclose = (event) => {
-      console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+    ws.onclose = event => {
+      console.log(
+        `WebSocket closed with code: ${event.code}, reason: ${event.reason}`,
+      );
       setReady(false);
 
       // 重連邏輯
@@ -77,14 +77,15 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
           connect();
         }, delay);
       } else {
-        console.error(`Failed to reconnect after ${MAX_RECONNECT_ATTEMPTS} attempts.`);
+        console.error(
+          `Failed to reconnect after ${MAX_RECONNECT_ATTEMPTS} attempts.`,
+        );
       }
     };
 
     instanceRef.current = ws;
   }, [endpoint, closeConnection]);
 
-  // 訂閱頻道
   const subscribe = useCallback(
     (channel: string) => {
       if (!instanceRef.current || !ready) {
@@ -122,7 +123,6 @@ export function useWebSocket(endpoint: string): WebSocketHookResult {
     [ready],
   );
 
-  // 在 component mount 時建立 WebSocket 連線，在 unmount 時關閉連線
   useEffect(() => {
     connect();
 

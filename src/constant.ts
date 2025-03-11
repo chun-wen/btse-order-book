@@ -11,20 +11,25 @@ export const ORDERBOOK_CHANNEL = 'update:BTCPFC_0';
 export const TRADE_HISTORY_CHANNEL = 'tradeHistoryApi:BTCPFC';
 export const TRADE_TOPIC = 'tradeHistoryApi';
 
-export const SAME_PRICE_THRESHOLD = 100;
-
-export const DIRECTION = {
+export const SORT_ORDER = {
   ASC: 'asc',
   DESC: 'desc',
 } as const;
 
-export type Direction = (typeof DIRECTION)[keyof typeof DIRECTION];
+export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
 
-export const CELL_TYPE = {
+export const DIRECTIONS = {
+  UP: 'up',
+  DOWN: 'down',
+} as const;
+
+export type Direction = (typeof DIRECTIONS)[keyof typeof DIRECTIONS];
+
+export const TRADE_TYPE = {
   ASK: 'ask',
   BID: 'bid',
 } as const;
 
-export type CellType = (typeof CELL_TYPE)[keyof typeof CELL_TYPE];
+export type TradeType = (typeof TRADE_TYPE)[keyof typeof TRADE_TYPE];
 
 export const MAX_DISPLAYED_ORDERS = 8;

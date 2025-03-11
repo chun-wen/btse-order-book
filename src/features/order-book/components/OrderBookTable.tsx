@@ -12,7 +12,7 @@ import {
 import { PriceRecord } from '@/features/trade/type';
 import { priceFormatter } from '@/utils/priceFormatter';
 
-import { CELL_TYPE } from '@/constant';
+import { TRADE_TYPE } from '@/constant';
 import { useNewOrderSet } from '../hooks/useNewOrderSet';
 import { OrderBookTableData } from '../type';
 import { SizeCell, TotalCell } from './Cell';
@@ -48,13 +48,13 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">
-              <SizeCell order={data} type={CELL_TYPE.ASK} />
+              <SizeCell order={data} type={TRADE_TYPE.ASK} />
             </TableCell>
             <TableCell className="w-[40%] text-right">
               <TotalCell
                 order={data}
                 totalSize={asks.totalSize}
-                type={CELL_TYPE.ASK}
+                type={TRADE_TYPE.ASK}
               />
             </TableCell>
           </TableRow>
@@ -73,13 +73,13 @@ export default function OrderBookTable({ asks, bids, priceRecord }: Props) {
               {priceFormatter(data.price)}
             </TableCell>
             <TableCell className="w-[30%] text-right">
-              <SizeCell order={data} type={CELL_TYPE.BID} />
+              <SizeCell order={data} type={TRADE_TYPE.BID} />
             </TableCell>
             <TableCell className="w-[40%] text-right">
               <TotalCell
                 order={data}
                 totalSize={bids.totalSize}
-                type={CELL_TYPE.BID}
+                type={TRADE_TYPE.BID}
               />
             </TableCell>
           </TableRow>

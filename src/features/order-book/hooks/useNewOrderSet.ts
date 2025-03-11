@@ -3,21 +3,29 @@ import { useEffect, useRef, useState } from 'react';
 import { OrderBookTableDataItem } from '../type';
 
 export const useNewOrderSet = (data: OrderBookTableDataItem[]) => {
-  const [newSet, setNewSet] = useState(new Set<number>());
-  const seenSet = useRef(new Set<number>());
+  const [recentlyAddedPrices, setRecentlyAddedPrices] = useState(
+    new Set<number>(),
+  );
+  const historicalPrices = useRef(new Set<number>());
 
   useEffect(() => {
-    const prices = data.map((item) => item.price);
+    const currentPrices = data.map(entry => entry.price);
 
-    if (seenSet.current.size === 0) {
-      seenSet.current = new Set(prices);
+    if (historicalPrices.current.size === 0) {
+      historicalPrices.current = new Set(currentPrices);
       return;
     }
 
-    const newPrices = prices.filter((price) => !seenSet.current.has(price));
-    setNewSet(new Set(newPrices));
-    seenSet.current = new Set([...seenSet.current, ...newPrices]);
+    const newlyAddedPrices = currentPrices.filter(
+      price => !historicalPrices.current.has(price),
+    );
+
+    setRecentlyAddedPrices(new Set(newlyAddedPrices));
+    historicalPrices.current = new Set([
+      ...historicalPrices.current,
+      ...newlyAddedPrices,
+    ]);
   }, [data]);
 
-  return newSet;
+  return recentlyAddedPrices;
 };

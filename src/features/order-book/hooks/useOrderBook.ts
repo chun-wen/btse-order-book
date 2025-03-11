@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ORDERBOOK_CHANNEL } from '@/constant';
-import { useWebSocketContext } from '@/hooks/WebSocketContext';
+import { useWebSocketContext } from '@/context/WebSocketContext';
 import { safeJsonParse } from '@/utils/safeParseJson';
 
 import { Order, OrderBookResponse, OrderPair } from '../type';
